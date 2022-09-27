@@ -7,4 +7,3 @@ whitenoise
 pyshorteners
 urllib3
 bs4
-os

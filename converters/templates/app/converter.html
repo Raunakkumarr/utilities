@@ -1,0 +1,1139 @@
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title Name and Logo -->
+    <title>Unit Converter | Raunak Mishra</title>
+    <link rel="icon" type="image/png" href="./assets/images/signature.png" />
+    <!-- Importing Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/custom.css">
+    <!-- Importing Bootstrap -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <!-- Importing Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nuosu+SIL&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-image: url("{% static 'images/conversion.jpg' %}");
+            background-size: cover;
+            background-position: center;
+        }
+
+        main{
+            background-color: rgba(117, 41, 39, 0.8);
+            width: 100%;
+        }
+
+        .sections{
+            position: relative;
+            z-index: 1;
+        }
+
+        #unit_converter_section, #temp_converter_section{
+            padding-top: 110px;
+            align-items: center;
+            height: 100%;
+            margin: auto;
+            justify-content: center;
+            display: flex;
+        }
+
+        .navbar-container {
+            width: 100%;
+            margin: 0 auto;
+            padding-left: 128px;
+            padding-right: 128px;
+            padding-top: 32px;
+            padding-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 767px) {
+            .navbar-container {
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+        }
+
+        @media screen and (max-width: 1024px) and (min-width: 767px) {
+            .navbar-container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+        }
+
+        .navbar-container h2 b a {
+            color: #fff;
+            font-size: 80px;
+            font-weight: 700;
+            text-decoration: none;
+            font-family: 'Tangerine', cursive;
+        }
+
+        .navbar-container h2 b a:hover{
+            color: silver;
+        }
+
+        @media screen and (max-width: 876px) {
+            .navbar-container h2 b a {
+                font-size: 36px;
+            }
+
+            .navbar-container {
+                padding-top: 24px;
+                padding-bottom: 24px;
+            }
+        }
+
+        @media screen and (min-width: 876px) and (max-width: 992px) {
+            .navbar-container h2 b a {
+                font-size: 52px;
+            }
+
+            .navbar-container {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
+
+        @media screen and (min-width: 993px) and (max-width: 1100px) {
+            .navbar-container h2 b a {
+                font-size: 60px;
+            }
+
+            .navbar-container {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
+
+        @media screen and (min-width: 1100px) {
+            header.is-scrolling .navbar-container h2 b a {
+                font-size: 52px;
+            }
+        }
+
+        header {
+            color: #FFF;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99;
+        }
+
+        header.is-scrolling {
+            background-color: rgba(54, 19, 18, 0.9);
+        }
+
+        header.is-scrolling .navbar-container {
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+        .lg-nav {
+            display: none;
+            grid-gap: 16px;
+            grid-template-columns: repeat(4, auto);
+        }
+
+        .lg-nav button {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            border: none;
+            background-color: transparent;
+        }
+
+        .lg-nav button:hover {
+            text-decoration: underline;
+            text-decoration-color: #fff;
+            color: #fff;
+        }
+
+        .showNavBtn {
+            position: relative;
+            display: block;
+            width: 35px;
+            cursor: pointer;
+            appearance: none;
+            background: none;
+            outline: none;
+            border: none;
+        }
+
+        .showNavBtn .bar,
+        .showNavBtn:after,
+        .showNavBtn:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 5px;
+            background-color: #FFF;
+            margin: 6px 0px;
+            transition: 0.4s;
+        }
+
+        .showNavBtn.is-active:before {
+            transform: rotate(-45deg) translate(-8px, 6px);
+        }
+
+        .showNavBtn.is-active:after {
+            transform: rotate(45deg) translate(-9px, -8px);
+        }
+
+        .showNavBtn.is-active .bar {
+            opacity: 0;
+        }
+
+        .mobileNav {
+            position: fixed;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            min-height: 100vh;
+            display: block;
+            z-index: 98;
+            background-color: rgba(117, 41, 39, 0.8);
+            padding-top: 120px;
+            transition: 0.4s;
+        }
+
+        .mobileNav.is-active {
+            left: 0;
+        }
+
+        .mobileNav button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto 16px;
+            text-align: center;
+            padding: 12px 16px;
+            background-color: inherit;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+        }
+
+        .mobileNav button:hover {
+            background-color: #24104f;
+            color: #fff;
+        }
+
+        @media screen and (min-width: 876px) {
+            .mobileNav {
+                display: none;
+            }
+
+            .showNavBtn {
+                display: none;
+            }
+
+            .lg-nav {
+                display: grid;
+            }
+        }
+
+        .from-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            gap: 16px;
+        }
+
+        .from-section p{
+            margin-top: 2px;
+            color: #fff;
+            font-family: arial, sans-serif;
+            font-size: 16px;
+        }
+
+        #currency_submit{
+            background-color: rgba(0, 0, 0, 0.8);
+            border: none;
+            border-radius: 7px;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 20px;
+            font-family: arial, sans-serif;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        #currency_submit:hover{
+            background-color: rgba(117, 41, 39, 0.8);
+        }
+
+        .from-section input, .from-section select{
+            margin-top: -12px;
+            border-radius: 5px;
+            font-family: arial, sans-serif;
+            font-size: 16px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            color: #fff;
+            background-color: rgba(117, 41, 39, 0.8);
+        }
+
+        .search-form {
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
+            margin: 0 auto;
+        }
+
+        .convert_button{
+            display: flex;
+            justify-content: center;
+        }
+
+        .convert-title {
+            font-size: 24px;
+            font-weight: 500;
+            font-family: 'Nuosu SIL', serif;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        input::placeholder{
+            color: #fff;
+        }
+
+        .results-section, .temp-results-section{
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+            color: #fff;
+            font-family: 'Inconsolata', monospace;
+        }
+
+        @media screen and (max-width: 937px) and (min-width: 375px) {
+            .sections{
+                width: 100%;
+                overflow: hidden;
+            }
+            .from-section{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .convert-title{
+                margin-bottom: 10px;
+            }
+            .from-section input, .from-section select, .from-section p{
+                margin-top: 0px;
+                margin-bottom: 0px;
+                font-size: 18px;
+            }
+        }
+
+        @media screen and (max-width: 375px) and (min-width: 265px) {
+            .sections {
+                width: 100%;
+                overflow: hidden;
+            }
+            .search-form{
+                padding-left: 8px;
+                padding-right: 8px
+            }
+
+            .from-section{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .convert-title{
+                margin-bottom: 10px;
+            }
+            .from-section input, .from-section select, .from-section p{
+                margin-top: 0px;
+                margin-bottom: 0px;
+                font-size: 12px;
+            }
+        }
+
+        @media screen and (max-width: 265px) {
+            .sections {
+                width: 100%;
+            }
+
+            .search-form{
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            .from-section{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .convert-title{
+                margin-bottom: 10px;
+            }
+
+            .from-section input, .from-section select, .from-section p{
+                margin-top: 0px;
+                margin-bottom: 0px;
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nav Section -->
+    <header>
+        <div class="navbar-container">
+            <h2><b style="color:#fff;"><a href="https://raunakmishra.com.np/">Raunak Mishra</a></b></h2>
+            <nav class="lg-nav">
+                <button id="currency_converter_link" href="https://converter.mraunak.com.np">Currency Converter</button>
+                <button id="temp_converter_link" href="">Temperature Converter</button>
+                <button style="display: none;" href="">File Converter</button>
+            </nav>
+            <button class="showNavBtn">
+                <div class="bar"></div>
+            </button>
+        </div>
+    </header>
+    <nav class="mobileNav">
+        <button id="currency_converter_link_mb" href="https://converter.mraunak.com.np">Currency Converter</button>
+        <button id="temp_converter_link_mb" href="">Temperature Converter</button>
+        <button style="display: none;" href="">File Converter</button>
+    </nav>
+
+    <!-- Main Content Section -->
+    <main>
+        <section class="sections" id="unit_converter_section">
+            <div class="search-form" id="currency_converter_search">
+                <div class="form-div">
+                    <p class="convert-title">Convert Currency</p>
+                    <div class="from-section">
+                        <input value="100" type="number" name="Enter Amount" id="from_amount">
+                        <select name="From" id="currency_from">
+                            <option value="AED">United Arab Emirates Dirham</option>
+                            <option value="AFN">Afghan Afghani</option>
+                            <option value="ALL">Albanian Lek</option>
+                            <option value="AMD">Armenian Dram</option>
+                            <option value="ANG">Netherlands Antillean Guilder</option>
+                            <option value="AOA">Angolan Kwanza</option>
+                            <option value="ARS">Argentine Peso</option>
+                            <option value="AUD">Australian Dollar</option>
+                            <option value="AWG">Aruban Florin</option>
+                            <option value="AZN">Azerbaijani Manat</option>
+                            <option value="BAM">Bosnia-Herzegovina Convertible Mark</option>
+                            <option value="BBD">Barbadian Dollar</option>
+                            <option value="BDT">Bangladeshi Taka</option>
+                            <option value="BGN">Bulgarian Lev</option>
+                            <option value="BHD">Bahraini Dinar</option>
+                            <option value="BIF">Burundian Franc</option>
+                            <option value="BMD">Bermudan Dollar</option>
+                            <option value="BND">Brunei Dollar</option>
+                            <option value="BOB">Bolivian Boliviano</option>
+                            <option value="BRL">Brazilian Real</option>
+                            <option value="BSD">Bahamian Dollar</option>
+                            <option value="BTC">Bitcoin</option>
+                            <option value="BTN">Bhutanese Ngultrum</option>
+                            <option value="BWP">Botswanan Pula</option>
+                            <option value="BYN">Belarusian Ruble</option>
+                            <option value="BZD">Belize Dollar</option>
+                            <option value="CAD">Canadian Dollar</option>
+                            <option value="CDF">Congolese Franc</option>
+                            <option value="CHF">Swiss Franc</option>
+                            <option value="CLF">Chilean Unit of Account (UF)</option>
+                            <option value="CLP">Chilean Peso</option>
+                            <option value="CNH">Chinese Yuan (Offshore)</option>
+                            <option value="CNY">Chinese Yuan</option>
+                            <option value="COP">Colombian Peso</option>
+                            <option value="CRC">Costa Rican Colón</option>
+                            <option value="CUC">Cuban Convertible Peso</option>
+                            <option value="CUP">Cuban Peso</option>
+                            <option value="CVE">Cape Verdean Escudo</option>
+                            <option value="CZK">Czech Republic Koruna</option>
+                            <option value="DJF">Djiboutian Franc</option>
+                            <option value="DKK">Danish Krone</option>
+                            <option value="DOP">Dominican Peso</option>
+                            <option value="DZD">Algerian Dinar</option>
+                            <option value="EGP">Egyptian Pound</option>
+                            <option value="ERN">Eritrean Nakfa</option>
+                            <option value="ETB">Ethiopian Birr</option>
+                            <option value="EUR">Euro</option>
+                            <option value="FJD">Fijian Dollar</option>
+                            <option value="FKP">Falkland Islands Pound</option>
+                            <option value="GBP">British Pound Sterling</option>
+                            <option value="GEL">Georgian Lari</option>
+                            <option value="GGP">Guernsey Pound</option>
+                            <option value="GHS">Ghanaian Cedi</option>
+                            <option value="GIP">Gibraltar Pound</option>
+                            <option value="GMD">Gambian Dalasi</option>
+                            <option value="GNF">Guinean Franc</option>
+                            <option value="GTQ">Guatemalan Quetzal</option>
+                            <option value="GYD">Guyanaese Dollar</option>
+                            <option value="HKD">Hong Kong Dollar</option>
+                            <option value="HNL">Honduran Lempira</option>
+                            <option value="HRK">Croatian Kuna</option>
+                            <option value="HTG">Haitian Gourde</option>
+                            <option value="HUF">Hungarian Forint</option>
+                            <option value="IDR">Indonesian Rupiah</option>
+                            <option value="ILS">Israeli New Sheqel</option>
+                            <option value="IMP">Manx pound</option>
+                            <option value="INR">Indian Rupee</option>
+                            <option value="IQD">Iraqi Dinar</option>
+                            <option value="IRR">Iranian Rial</option>
+                            <option value="ISK">Icelandic Króna</option>
+                            <option value="JEP">Jersey Pound</option>
+                            <option value="JMD">Jamaican Dollar</option>
+                            <option value="JOD">Jordanian Dinar</option>
+                            <option value="JPY">Japanese Yen</option>
+                            <option value="KES">Kenyan Shilling</option>
+                            <option value="KGS">Kyrgystani Som</option>
+                            <option value="KHR">Cambodian Riel</option>
+                            <option value="KMF">Comorian Franc</option>
+                            <option value="KPW">North Korean Won</option>
+                            <option value="KRW">South Korean Won</option>
+                            <option value="KWD">Kuwaiti Dinar</option>
+                            <option value="KYD">Cayman Islands Dollar</option>
+                            <option value="KZT">Kazakhstani Tenge</option>
+                            <option value="LAK">Laotian Kip</option>
+                            <option value="LBP">Lebanese Pound</option>
+                            <option value="LKR">Sri Lankan Rupee</option>
+                            <option value="LRD">Liberian Dollar</option>
+                            <option value="LSL">Lesotho Loti</option>
+                            <option value="LYD">Libyan Dinar</option>
+                            <option value="MAD">Moroccan Dirham</option>
+                            <option value="MDL">Moldovan Leu</option>
+                            <option value="MGA">Malagasy Ariary</option>
+                            <option value="MKD">Macedonian Denar</option>
+                            <option value="MMK">Myanma Kyat</option>
+                            <option value="MNT">Mongolian Tugrik</option>
+                            <option value="MOP">Macanese Pataca</option>
+                            <option value="MRU">Mauritanian Ouguiya</option>
+                            <option value="MUR">Mauritian Rupee</option>
+                            <option value="MVR">Maldivian Rufiyaa</option>
+                            <option value="MWK">Malawian Kwacha</option>
+                            <option value="MXN">Mexican Peso</option>
+                            <option value="MYR">Malaysian Ringgit</option>
+                            <option value="MZN">Mozambican Metical</option>
+                            <option value="NAD">Namibian Dollar</option>
+                            <option value="NGN">Nigerian Naira</option>
+                            <option value="NIO">Nicaraguan Córdoba</option>
+                            <option value="NOK">Norwegian Krone</option>
+                            <option value="NPR">Nepalese Rupee</option>
+                            <option value="NZD">New Zealand Dollar</option>
+                            <option value="OMR">Omani Rial</option>
+                            <option value="PAB">Panamanian Balboa</option>
+                            <option value="PEN">Peruvian Nuevo Sol</option>
+                            <option value="PGK">Papua New Guinean Kina</option>
+                            <option value="PHP">Philippine Peso</option>
+                            <option value="PKR">Pakistani Rupee</option>
+                            <option value="PLN">Polish Zloty</option>
+                            <option value="PYG">Paraguayan Guarani</option>
+                            <option value="QAR">Qatari Rial</option>
+                            <option value="RON">Romanian Leu</option>
+                            <option value="RSD">Serbian Dinar</option>
+                            <option value="RUB">Russian Ruble</option>
+                            <option value="RWF">Rwandan Franc</option>
+                            <option value="SAR">Saudi Riyal</option>
+                            <option value="SBD">Solomon Islands Dollar</option>
+                            <option value="SCR">Seychellois Rupee</option>
+                            <option value="SDG">Sudanese Pound</option>
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SGD">Singapore Dollar</option>
+                            <option value="SHP">Saint Helena Pound</option>
+                            <option value="SLL">Sierra Leonean Leone</option>
+                            <option value="SOS">Somali Shilling</option>
+                            <option value="SRD">Surinamese Dollar</option>
+                            <option value="SSP">South Sudanese Pound</option>
+                            <option value="STD">São Tomé and Príncipe Dobra (pre-2018)</option>
+                            <option value="STN">São Tomé and Príncipe Dobra</option>
+                            <option value="SVC">Salvadoran Colón</option>
+                            <option value="SYP">Syrian Pound</option>
+                            <option value="SZL">Swazi Lilangeni</option>
+                            <option value="THB">Thai Baht</option>
+                            <option value="TJS">Tajikistani Somoni</option>
+                            <option value="TMT">Turkmenistani Manat</option>
+                            <option value="TND">Tunisian Dinar</option>
+                            <option value="TOP">Tongan Pa'anga</option>
+                            <option value="TRY">Turkish Lira</option>
+                            <option value="TTD">Trinidad and Tobago Dollar</option>
+                            <option value="TWD">New Taiwan Dollar</option>
+                            <option value="TZS">Tanzanian Shilling</option>
+                            <option value="UAH">Ukrainian Hryvnia</option>
+                            <option value="UGX">Ugandan Shilling</option>
+                            <option value="USD">United States Dollar</option>
+                            <option value="UYU">Uruguayan Peso</option>
+                            <option value="UZS">Uzbekistan Som</option>
+                            <option value="VEF">Venezuelan Bolívar Fuerte (Old)</option>
+                            <option value="VES">Venezuelan Bolívar Soberano</option>
+                            <option value="VND">Vietnamese Dong</option>
+                            <option value="VUV">Vanuatu Vatu</option>
+                            <option value="WST">Samoan Tala</option>
+                            <option value="XAF">CFA Franc BEAC</option>
+                            <option value="XAG">Silver Ounce</option>
+                            <option value="XAU">Gold Ounce</option>
+                            <option value="XCD">East Caribbean Dollar</option>
+                            <option value="XDR">Special Drawing Rights</option>
+                            <option value="XOF">CFA Franc BCEAO</option>
+                            <option value="XPD">Palladium Ounce</option>
+                            <option value="XPF">CFP Franc</option>
+                            <option value="XPT">Platinum Ounce</option>
+                            <option value="YER">Yemeni Rial</option>
+                            <option value="ZAR">South African Rand</option>
+                            <option value="ZMW">Zambian Kwacha</option>
+                            <option value="ZWL">Zimbabwean Dollar</option>
+                        </select>
+                        <p>To</p>
+                        <select name="To" id="currency_to">
+                            <option value="AED">United Arab Emirates Dirham</option>
+                            <option value="AFN">Afghan Afghani</option>
+                            <option value="ALL">Albanian Lek</option>
+                            <option value="AMD">Armenian Dram</option>
+                            <option value="ANG">Netherlands Antillean Guilder</option>
+                            <option value="AOA">Angolan Kwanza</option>
+                            <option value="ARS">Argentine Peso</option>
+                            <option value="AUD">Australian Dollar</option>
+                            <option value="AWG">Aruban Florin</option>
+                            <option value="AZN">Azerbaijani Manat</option>
+                            <option value="BAM">Bosnia-Herzegovina Convertible Mark</option>
+                            <option value="BBD">Barbadian Dollar</option>
+                            <option value="BDT">Bangladeshi Taka</option>
+                            <option value="BGN">Bulgarian Lev</option>
+                            <option value="BHD">Bahraini Dinar</option>
+                            <option value="BIF">Burundian Franc</option>
+                            <option value="BMD">Bermudan Dollar</option>
+                            <option value="BND">Brunei Dollar</option>
+                            <option value="BOB">Bolivian Boliviano</option>
+                            <option value="BRL">Brazilian Real</option>
+                            <option value="BSD">Bahamian Dollar</option>
+                            <option value="BTC">Bitcoin</option>
+                            <option value="BTN">Bhutanese Ngultrum</option>
+                            <option value="BWP">Botswanan Pula</option>
+                            <option value="BYN">Belarusian Ruble</option>
+                            <option value="BZD">Belize Dollar</option>
+                            <option value="CAD">Canadian Dollar</option>
+                            <option value="CDF">Congolese Franc</option>
+                            <option value="CHF">Swiss Franc</option>
+                            <option value="CLF">Chilean Unit of Account (UF)</option>
+                            <option value="CLP">Chilean Peso</option>
+                            <option value="CNH">Chinese Yuan (Offshore)</option>
+                            <option value="CNY">Chinese Yuan</option>
+                            <option value="COP">Colombian Peso</option>
+                            <option value="CRC">Costa Rican Colón</option>
+                            <option value="CUC">Cuban Convertible Peso</option>
+                            <option value="CUP">Cuban Peso</option>
+                            <option value="CVE">Cape Verdean Escudo</option>
+                            <option value="CZK">Czech Republic Koruna</option>
+                            <option value="DJF">Djiboutian Franc</option>
+                            <option value="DKK">Danish Krone</option>
+                            <option value="DOP">Dominican Peso</option>
+                            <option value="DZD">Algerian Dinar</option>
+                            <option value="EGP">Egyptian Pound</option>
+                            <option value="ERN">Eritrean Nakfa</option>
+                            <option value="ETB">Ethiopian Birr</option>
+                            <option value="EUR">Euro</option>
+                            <option value="FJD">Fijian Dollar</option>
+                            <option value="FKP">Falkland Islands Pound</option>
+                            <option value="GBP">British Pound Sterling</option>
+                            <option value="GEL">Georgian Lari</option>
+                            <option value="GGP">Guernsey Pound</option>
+                            <option value="GHS">Ghanaian Cedi</option>
+                            <option value="GIP">Gibraltar Pound</option>
+                            <option value="GMD">Gambian Dalasi</option>
+                            <option value="GNF">Guinean Franc</option>
+                            <option value="GTQ">Guatemalan Quetzal</option>
+                            <option value="GYD">Guyanaese Dollar</option>
+                            <option value="HKD">Hong Kong Dollar</option>
+                            <option value="HNL">Honduran Lempira</option>
+                            <option value="HRK">Croatian Kuna</option>
+                            <option value="HTG">Haitian Gourde</option>
+                            <option value="HUF">Hungarian Forint</option>
+                            <option value="IDR">Indonesian Rupiah</option>
+                            <option value="ILS">Israeli New Sheqel</option>
+                            <option value="IMP">Manx pound</option>
+                            <option value="INR">Indian Rupee</option>
+                            <option value="IQD">Iraqi Dinar</option>
+                            <option value="IRR">Iranian Rial</option>
+                            <option value="ISK">Icelandic Króna</option>
+                            <option value="JEP">Jersey Pound</option>
+                            <option value="JMD">Jamaican Dollar</option>
+                            <option value="JOD">Jordanian Dinar</option>
+                            <option value="JPY">Japanese Yen</option>
+                            <option value="KES">Kenyan Shilling</option>
+                            <option value="KGS">Kyrgystani Som</option>
+                            <option value="KHR">Cambodian Riel</option>
+                            <option value="KMF">Comorian Franc</option>
+                            <option value="KPW">North Korean Won</option>
+                            <option value="KRW">South Korean Won</option>
+                            <option value="KWD">Kuwaiti Dinar</option>
+                            <option value="KYD">Cayman Islands Dollar</option>
+                            <option value="KZT">Kazakhstani Tenge</option>
+                            <option value="LAK">Laotian Kip</option>
+                            <option value="LBP">Lebanese Pound</option>
+                            <option value="LKR">Sri Lankan Rupee</option>
+                            <option value="LRD">Liberian Dollar</option>
+                            <option value="LSL">Lesotho Loti</option>
+                            <option value="LYD">Libyan Dinar</option>
+                            <option value="MAD">Moroccan Dirham</option>
+                            <option value="MDL">Moldovan Leu</option>
+                            <option value="MGA">Malagasy Ariary</option>
+                            <option value="MKD">Macedonian Denar</option>
+                            <option value="MMK">Myanma Kyat</option>
+                            <option value="MNT">Mongolian Tugrik</option>
+                            <option value="MOP">Macanese Pataca</option>
+                            <option value="MRU">Mauritanian Ouguiya</option>
+                            <option value="MUR">Mauritian Rupee</option>
+                            <option value="MVR">Maldivian Rufiyaa</option>
+                            <option value="MWK">Malawian Kwacha</option>
+                            <option value="MXN">Mexican Peso</option>
+                            <option value="MYR">Malaysian Ringgit</option>
+                            <option value="MZN">Mozambican Metical</option>
+                            <option value="NAD">Namibian Dollar</option>
+                            <option value="NGN">Nigerian Naira</option>
+                            <option value="NIO">Nicaraguan Córdoba</option>
+                            <option value="NOK">Norwegian Krone</option>
+                            <option value="NPR">Nepalese Rupee</option>
+                            <option value="NZD">New Zealand Dollar</option>
+                            <option value="OMR">Omani Rial</option>
+                            <option value="PAB">Panamanian Balboa</option>
+                            <option value="PEN">Peruvian Nuevo Sol</option>
+                            <option value="PGK">Papua New Guinean Kina</option>
+                            <option value="PHP">Philippine Peso</option>
+                            <option value="PKR">Pakistani Rupee</option>
+                            <option value="PLN">Polish Zloty</option>
+                            <option value="PYG">Paraguayan Guarani</option>
+                            <option value="QAR">Qatari Rial</option>
+                            <option value="RON">Romanian Leu</option>
+                            <option value="RSD">Serbian Dinar</option>
+                            <option value="RUB">Russian Ruble</option>
+                            <option value="RWF">Rwandan Franc</option>
+                            <option value="SAR">Saudi Riyal</option>
+                            <option value="SBD">Solomon Islands Dollar</option>
+                            <option value="SCR">Seychellois Rupee</option>
+                            <option value="SDG">Sudanese Pound</option>
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SGD">Singapore Dollar</option>
+                            <option value="SHP">Saint Helena Pound</option>
+                            <option value="SLL">Sierra Leonean Leone</option>
+                            <option value="SOS">Somali Shilling</option>
+                            <option value="SRD">Surinamese Dollar</option>
+                            <option value="SSP">South Sudanese Pound</option>
+                            <option value="STD">São Tomé and Príncipe Dobra (pre-2018)</option>
+                            <option value="STN">São Tomé and Príncipe Dobra</option>
+                            <option value="SVC">Salvadoran Colón</option>
+                            <option value="SYP">Syrian Pound</option>
+                            <option value="SZL">Swazi Lilangeni</option>
+                            <option value="THB">Thai Baht</option>
+                            <option value="TJS">Tajikistani Somoni</option>
+                            <option value="TMT">Turkmenistani Manat</option>
+                            <option value="TND">Tunisian Dinar</option>
+                            <option value="TOP">Tongan Pa'anga</option>
+                            <option value="TRY">Turkish Lira</option>
+                            <option value="TTD">Trinidad and Tobago Dollar</option>
+                            <option value="TWD">New Taiwan Dollar</option>
+                            <option value="TZS">Tanzanian Shilling</option>
+                            <option value="UAH">Ukrainian Hryvnia</option>
+                            <option value="UGX">Ugandan Shilling</option>
+                            <option value="USD">United States Dollar</option>
+                            <option value="UYU">Uruguayan Peso</option>
+                            <option value="UZS">Uzbekistan Som</option>
+                            <option value="VEF">Venezuelan Bolívar Fuerte (Old)</option>
+                            <option value="VES">Venezuelan Bolívar Soberano</option>
+                            <option value="VND">Vietnamese Dong</option>
+                            <option value="VUV">Vanuatu Vatu</option>
+                            <option value="WST">Samoan Tala</option>
+                            <option value="XAF">CFA Franc BEAC</option>
+                            <option value="XAG">Silver Ounce</option>
+                            <option value="XAU">Gold Ounce</option>
+                            <option value="XCD">East Caribbean Dollar</option>
+                            <option value="XDR">Special Drawing Rights</option>
+                            <option value="XOF">CFA Franc BCEAO</option>
+                            <option value="XPD">Palladium Ounce</option>
+                            <option value="XPF">CFP Franc</option>
+                            <option value="XPT">Platinum Ounce</option>
+                            <option value="YER">Yemeni Rial</option>
+                            <option value="ZAR">South African Rand</option>
+                            <option value="ZMW">Zambian Kwacha</option>
+                            <option value="ZWL">Zimbabwean Dollar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="results-section">
+                    <h2><span id="convert_from_value"></span> <span id="converted_from_currency"></span> = <span
+                            id="converted_value"></span> <span id="convert_to_currency"></span></h2>
+                </div>
+            </div>
+        </section>
+        <section class="sections" id="temp_converter_section">
+            <div class="search-form" id="temp_converter_search">
+                <div class="form-div">
+                    <p style="margin-bottom: 6px;" class="convert-title">Convert Temperature</p>
+                    <div class="from-section">
+                        <input type="number" placeholder="Enter Temperature" name="temperature" id="temp_convert">
+                        <select name="From" id="from_temp">
+                            <option value="From">From</option>
+                            <option value="Celcius">Celcius (°C)</option>
+                            <option value="Kelvin">Kelvin (K)</option>
+                            <option value="Farenheit">Farenheit (°F)</option>
+                        </select>
+                        <select name="TO" id="to_temp">
+                            <option value="To">To</option>
+                            <option value="Celcius">Celcius (°C)</option>
+                            <option value="Kelvin">Kelvin (K)</option>
+                            <option value="Farenheit">Farenheit (°F)</option>
+                        </select>
+                    </div>
+                    <div class="temp-results-section">
+                        <h2><span id="convert_from_temp"></span> <span id="converted_from_temp"></span> = <span
+                                id="converted_temp"></span> <span id="convert_to_temp"></span></h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#temp_converter_section').hide();
+            $("#from_amount").keyup(function () {
+                    var amount = $(this).val();
+                    var currency_from = $('#currency_from').val();
+                    var currency_to = $('#currency_to').val();
+                    if (currency_from === currency_to) {
+                        $('#convert_from_value').text(amount);
+                        $('#converted_from_currency').text(currency_from);
+                        $('#convert_to_currency').text(currency_to);
+                        $('#converted_value').text(amount);
+                    }
+                    else {
+                        $.getJSON('https://openexchangerates.org/api/latest.json?app_id=1e4c6b8953dd4223b1e630a9e2ef9ab2', function (data) {
+                            var from = data.rates[currency_from];
+                            var to = data.rates[currency_to];
+                            $('#convert_from_value').text(amount);
+                            $('#converted_from_currency').text(currency_from);
+                            $('#convert_to_currency').text(currency_to);
+                            converted = (amount * to) / from;
+                            $('#converted_value').text(converted);
+                        });   
+                    }
+            }).keyup();
+            $('#currency_from').change(function () {
+                var amount = $('#from_amount').val();
+                var currency_from = $('#currency_from').val();
+                var currency_to = $('#currency_to').val();
+                if (currency_from === currency_to) {
+                    $('#convert_from_value').text(amount);
+                    $('#converted_from_currency').text(currency_from);
+                    $('#convert_to_currency').text(currency_to);
+                    $('#converted_value').text(amount);
+                }
+                else {
+                    $.getJSON('https://openexchangerates.org/api/latest.json?app_id=1e4c6b8953dd4223b1e630a9e2ef9ab2', function (data) {
+                        var from = data.rates[currency_from];
+                        var to = data.rates[currency_to];
+                        $('#convert_from_value').text(amount);
+                        $('#converted_from_currency').text(currency_from);
+                        $('#convert_to_currency').text(currency_to);
+                        converted = (amount * to) / from;
+                        $('#converted_value').text(converted);
+                    });
+                }
+            });
+            $('#currency_to').change(function () {
+                var amount = $('#from_amount').val();
+                var currency_from = $('#currency_from').val();
+                var currency_to = $('#currency_to').val();
+                if (currency_from === currency_to) {
+                    $('#convert_from_value').text(amount);
+                    $('#converted_from_currency').text(currency_from);
+                    $('#convert_to_currency').text(currency_to);
+                    $('#converted_value').text(amount);
+                }
+                else {
+                    $.getJSON('https://openexchangerates.org/api/latest.json?app_id=1e4c6b8953dd4223b1e630a9e2ef9ab2', function (data) {
+                        var from = data.rates[currency_from];
+                        var to = data.rates[currency_to];
+                        $('#convert_from_value').text(amount);
+                        $('#converted_from_currency').text(currency_from);
+                        $('#convert_to_currency').text(currency_to);
+                        converted = (amount * to) / from;
+                        $('#converted_value').text(converted);
+                    });
+                }
+            });
+            $('#temp_converter_link').click(function(){
+                $('#temp_converter_section').show();
+                $('#unit_converter_section').hide();
+            });
+            $('#temp_converter_link_mb').click(function () {
+                $('#temp_converter_section').show();
+                $('#unit_converter_section').hide();
+            });
+            $('#currency_converter_link').click(function(){
+                $('#temp_converter_section').hide();
+                $('#unit_converter_section').show();
+            });
+            $('#currency_converter_link_mb').click(function () {
+                $('#temp_converter_section').hide();
+                $('#unit_converter_section').show();
+            });
+            $('#from_temp').change(function(){
+                convert_temp = parseInt($('#temp_convert').val());
+                temp_from = $('#from_temp').val();
+                temp_to = $('#to_temp').val();
+                if (temp_from == temp_to){
+                    $('#convert_from_temp').text(convert_temp);
+                    $('#converted_from_temp').text(temp_from);
+                    $('#converted_temp').text(convert_temp);
+                    $('#convert_to_temp').text(temp_to);
+                } else {
+                    if (temp_from == "Celcius") {
+                        if (temp_to == "Kelvin") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cctok(convert_temp);
+                        } else if (temp_to == "Farenheit") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cctof(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else if (temp_from == "Kelvin") {
+                        if (temp_to == "Celcius") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cktoc(convert_temp);
+                        } else if (temp_to == "Farenheit") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cktof(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else if (temp_from == "Farenheit") {
+                        if (temp_to == "Celcius") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cftoc(convert_temp);
+                        } else if (temp_to == "Kelvin") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cftok(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else {
+                        alert("Please select what unit you want to convert the temperature from !");
+                    }
+                }
+            });
+            $('#to_temp').change(function(){
+                convert_temp = parseInt($('#temp_convert').val());
+                temp_from = $('#from_temp').val();
+                temp_to = $('#to_temp').val();
+                if (temp_from == temp_to) {
+                    $('#convert_from_temp').text(convert_temp);
+                    $('#converted_from_temp').text(temp_from);
+                    $('#converted_temp').text(convert_temp);
+                    $('#convert_to_temp').text(temp_to);
+                } else {
+                    if (temp_from == "Celcius") {
+                        if (temp_to == "Kelvin") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cctok(convert_temp);
+                        } else if (temp_to == "Farenheit") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cctof(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else if (temp_from == "Kelvin") {
+                        if (temp_to == "Celcius") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cktoc(convert_temp);
+                        } else if (temp_to == "Farenheit") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cktof(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else if (temp_from == "Farenheit") {
+                        if (temp_to == "Celcius") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cftoc(convert_temp);
+                        } else if (temp_to == "Kelvin") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cftok(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else {
+                        alert("Please select what unit you want to convert the temperature from !");
+                    }
+                }
+            });
+            $('#temp_convert').keyup(function(){
+                convert_temp = parseInt($('#temp_convert').val());
+                temp_from = $('#from_temp').val();
+                temp_to = $('#to_temp').val();
+                if (temp_from == temp_to) {
+                    $('#convert_from_temp').text(convert_temp);
+                    $('#converted_from_temp').text(temp_from);
+                    $('#converted_temp').text(convert_temp);
+                    $('#convert_to_temp').text(temp_to);
+                } else {
+                    if (temp_from == "Celcius") {
+                        if (temp_to == "Kelvin") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cctok(convert_temp);
+                        } else if (temp_to == "Farenheit") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cctof(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else if (temp_from == "Kelvin") {
+                        if (temp_to == "Celcius") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cktoc(convert_temp);
+                        } else if (temp_to == "Farenheit") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cktof(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else if (temp_from == "Farenheit") {
+                        if (temp_to == "Celcius") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cftoc(convert_temp);
+                        } else if (temp_to == "Kelvin") {
+                            $('#convert_from_temp').text(convert_temp);
+                            $('#converted_from_temp').text(temp_from);
+                            $('#convert_to_temp').text(temp_to);
+                            cftok(convert_temp);
+                        } else {
+                            alert("Please select what unit you want to convert the temperature to !");
+                        }
+                    } else {
+                        alert("Please select what unit you want to convert the temperature from !");
+                    }
+                }
+            });
+
+            //Temperature Converter Functions
+            //Function to convert Celcius to Kelvin
+            function cctok (temper){
+                result = temper+273.15;
+                $('#converted_temp').text(result);
+            }
+
+            //Function to convert Celcius to Farenheit
+            function cctof (temper){
+                result = (temper * 9 / 5) + 32;
+                $('#converted_temp').text(result);
+            }
+
+            //Function to convert Kelvin to Celcius
+            function cktoc (temper) {
+                result = temper - 273.15;
+                $('#converted_temp').text(result);
+            }
+
+            //Function to convert Kelvin to Farenheit
+            function cktof (temper) {
+                result = ((temper - 273.15) * 9 / 5) + 32;
+                $('#converted_temp').text(result);
+            }
+
+            //Function to convert Farenheit to Celcius
+            function cftoc (temper) {
+                result = (temper - 32) * 5 / 9;
+                $('#converted_temp').text(result);
+            }
+
+            //Function to convert Farenheit to Kelvin
+            function cftok (temper) {
+                result = ((temper - 32) * 5 / 9) + 273.15;
+                $('#converted_temp').text(result);
+            }
+        });
+    </script>
+</body>
+<script>
+    window.onload = function () {
+        window.addEventListener('scroll', function (e) {
+            if (window.pageYOffset > 100) {
+                document.querySelector("header").classList.add('is-scrolling');
+            } else {
+                document.querySelector("header").classList.remove('is-scrolling');
+            }
+        });
+
+        const menu_btn = document.querySelector('.showNavBtn');
+        const mobile_menu = document.querySelector('.mobileNav');
+
+        menu_btn.addEventListener('click', function () {
+            menu_btn.classList.toggle('is-active');
+            mobile_menu.classList.toggle('is-active');
+        });
+    }
+</script>
+
+</html>
